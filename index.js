@@ -8,7 +8,7 @@ app.use(express.static("public"));
 app.get("/json", (req, res) => {
   knex(TABLE_NAME)
     .select()
-    .orderBy("Yds", "desc")
+    .orderBy("Lng", "desc")
     .then((result) => {
       res.json(result);
     })

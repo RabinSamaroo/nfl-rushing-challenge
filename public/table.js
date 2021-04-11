@@ -26,6 +26,10 @@ function generateTable(data) {
   tbody.classList = "flex-1 sm:flex-none";
 
   for (i in data) {
+    data[i]["Lng"] =
+      data[i]["Lng"].toString() + (data[i]["LngTD"] == "1" ? "T" : "");
+    delete data[i]["LngTD"];
+
     let row_head = thead.insertRow();
     row_head.classList =
       "text-red-400 bg-gray-800 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0";
