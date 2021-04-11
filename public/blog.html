@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      @media (min-width: 640px) {
+        table {
+          display: inline-table !important;
+        }
+
+        thead tr:not(:first-child) {
+          display: none;
+        }
+      }
+    </style>
+    <title>theScore Technical Challenge</title>
+  </head>
+  <body class="text-gray-400 bg-gray-900">
+    <header class="text-gray-400 bg-gray-900 body-font">
+      <div
+        class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center"
+      >
+        <a
+          class="flex title-font font-medium items-center text-white mb-4 md:mb-0"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="w-10 h-10 text-white p-2 bg-red-500 rounded-full"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+            ></path>
+          </svg>
+          <span class="ml-3 text-xl">theScore Technical Challenge - Rabin Samaroo</span>
+        </a>
+        <nav
+          class="md:ml-auto flex flex-wrap items-center text-base justify-center"
+        >
+          <a href=/index.html class="mr-5 hover:text-white cursor-pointer">Home</a>
+          <a href=/blog.html class="mr-5 hover:text-white cursor-pointer">Devlog</a>
+        </nav>
+        <button
+          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
+        >
+          Github
+          <svg
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            class="w-4 h-4 ml-1"
+            viewBox="0 0 24 24"
+          >
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+
+    <section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="-my-8 divide-y-2 divide-gray-800">
+          <div
+            class="py-8 flex border-t-2 border-gray-800 flex-wrap md:flex-nowrap"
+          >
+            <div class="md:w-36 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+              <span class="mt-1 text-gray-500 text-sm">April 11, 2021</span>
+            </div>
+            <div class="md:flex-grow">
+              <h2 class="text-2xl font-medium text-red-400 title-font mb-2">
+                Woke master cleanse drinking vinegar salvia
+              </h2>
+              <p class="leading-relaxed">
+                Glossier echo park pug, church-key sartorial biodiesel
+                vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon
+                party messenger bag selfies, poke vaporware kombucha
+                lumbersexual pork belly polaroid hoodie portland craft beer.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
