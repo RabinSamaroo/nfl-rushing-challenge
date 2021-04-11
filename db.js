@@ -1,41 +1,40 @@
-const mysql = require("mysql2");
-const rushing = require("./rushing.json");
-
-const DB_NAME = "tst1";
+const DB_NAME = "prod";
 const TABLE_NAME = "players";
 
+const rushing = require("./rushing.json");
 // create the connection to database
-const connection = mysql.createConnection({
-  host: "34.68.135.75",
-  user: "root",
-  password: "password",
-  database: DB_NAME,
+const knex = require("knex")({
+  client: "mysql2",
+  connection: {
+    host: "34.68.135.75",
+    user: "root",
+    password: "password",
+    database: DB_NAME,
+  },
 });
 
 function createTable(table) {
-  return `
-CREATE TABLE ${table}(
-  \`Player\` VARCHAR(64) NOT NULL,
-  \`Team\` VARCHAR(3) NOT NULL,
-  \`Pos\`  VARCHAR(2) NOT NULL,
-  \`Att\`  INTEGER  NOT NULL,
-  \`AttG\` NUMERIC(8,1) NOT NULL,
-  \`Yds\`  INTEGER  NOT NULL,
-  \`Avg\`  NUMERIC(8,1) NOT NULL,
-  \`YdsG\` NUMERIC(8,1) NOT NULL,
-  \`TD\`   INTEGER  NOT NULL,
-  \`Lng\`  INTEGER  NOT NULL,
-  \`1st\`  INTEGER  NOT NULL,
-  \`1st%\` NUMERIC(8,1) NOT NULL,
-  \`20+\`  INTEGER  NOT NULL,
-  \`40+\`  INTEGER  NOT NULL,
-  \`FUM\`  INTEGER  NOT NULL,
-  \`LngTD\` BOOLEAN  NOT NULL
-);
-  `;
+  return knex.schema.createTable(table, (table) => {
+    table.string("Player", 64).notNull();
+    table.string("Team", 3).notNull();
+    table.string("Pos", 2).notNull();
+    table.integer("Att").notNull();
+    table.float("Att/G").notNull();
+    table.integer("Yds").notNull();
+    table.float("Avg").notNull();
+    table.float("Yds/G").notNull();
+    table.integer("TD").notNull();
+    table.integer("Lng").notNull();
+    table.integer("1st").notNull();
+    table.float("1st%").notNull();
+    table.integer("20+").notNull();
+    table.integer("40+").notNull();
+    table.integer("FUM").notNull();
+    table.boolean("LngTD").notNull();
+  });
 }
 
-function processRawRushingJSON(input) {
+function batchInsertFromJSON(input, table) {
   let arr = input;
   for (let e in arr) {
     // Fix Yds to all be numbers
@@ -50,27 +49,7 @@ function processRawRushingJSON(input) {
       arr[e].LngTD = false;
     }
   }
-  return arr;
+  return knex(table).insert(arr);
 }
 
-function batchInsertFromJSON(arr, table) {
-  let procArr = processRawRushingJSON(arr);
-  let queryString = `
-    INSERT INTO  ${table}(\`Player\`,\`Team\`,\`Pos\`,\`Att\`,\`AttG\`,\`Yds\`,\`Avg\`,\`YdsG\`,\`TD\`,\`Lng\`,\`1st\`,\`1st%\`,\`20+\`,\`40+\`,\`FUM\`,\`LngTD\`) VALUES
-    `;
-
-  for (e in procArr) {
-    obj = procArr[e];
-    queryString += `
-    ("${obj["Player"]}",'${obj["Team"]}','${obj["Pos"]}',${obj["Att"]},${obj["Att/G"]},${obj["Yds"]},${obj["Avg"]},${obj["Yds/G"]},${obj["TD"]},${obj["Lng"]},${obj["1st"]},${obj["1st%"]},${obj["20+"]},${obj["40+"]},${obj["FUM"]},${obj["LngTD"]}),`;
-  }
-
-  return queryString.replace(/,\s*$/, "");
-}
-
-// async function query(string) {
-//   let result = await connection.promise().execute(string);
-//   return result;
-// }
-
-module.exports = { connection, TABLE_NAME };
+module.exports = { knex, TABLE_NAME };
