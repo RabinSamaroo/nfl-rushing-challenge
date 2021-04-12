@@ -1,5 +1,5 @@
 const rushing = require("./rushing.json");
-const { knex, TABLE_NAME } = require("../db.js");
+const { knex } = require("../db.js");
 
 function createTable(table) {
   return knex.schema.createTable(table, (table) => {
@@ -39,4 +39,4 @@ function batchInsertFromJSON(input, table) {
   return knex(table).insert(arr);
 }
 
-module.exports = { rushing, createTable, batchInsertFromJSON, TABLE_NAME };
+module.exports = { rushing, createTable, batchInsertFromJSON };
