@@ -1,18 +1,5 @@
-const DB_NAME = "prod";
-const TABLE_NAME = "players";
-
-//TODO: move to util functions
 const rushing = require("./rushing.json");
-// create the connection to database
-const knex = require("knex")({
-  client: "mysql2",
-  connection: {
-    host: "34.68.135.75",
-    user: "root",
-    password: "password",
-    database: DB_NAME,
-  },
-});
+const { knex, TABLE_NAME } = require("../db.js");
 
 function createTable(table) {
   return knex.schema.createTable(table, (table) => {
@@ -52,4 +39,4 @@ function batchInsertFromJSON(input, table) {
   return knex(table).insert(arr);
 }
 
-module.exports = { knex, TABLE_NAME };
+module.exports = { rushing, createTable, batchInsertFromJSON, TABLE_NAME };
