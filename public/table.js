@@ -4,17 +4,27 @@ const filterPlayer = document.getElementById("filter-player");
 const downloadBtn = document.getElementById("download-csv");
 const filterSubmitBtn = document.getElementById("filter-submit");
 
-function queryDatabase() {
+function generateParams() {
   const fields = {
     filterField: filterField.value,
     filterAsc: filterAsc.value,
     filterPlayer: filterPlayer.value,
   };
 
-  const urlParameters = Object.entries(fields)
+  return Object.entries(fields)
     .map((e) => e.join("="))
     .join("&");
+}
 
+function downloadCSV() {
+  const urlParameters = generateParams();
+  const url = window.location.origin + "/csv?" + urlParameters;
+
+  window.open(url);
+}
+
+function queryDatabase() {
+  const urlParameters = generateParams();
   const url = window.location.origin + "/json?" + urlParameters;
 
   fetch(url)
@@ -33,10 +43,6 @@ function generateTable(data) {
   tbody.classList = "flex-1 sm:flex-none";
 
   for (i in data) {
-    data[i]["Lng"] =
-      data[i]["Lng"].toString() + (data[i]["LngTD"] == "1" ? "T" : "");
-    delete data[i]["LngTD"];
-
     let row_head = thead.insertRow();
     row_head.classList =
       "text-red-400 bg-gray-800 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0";
@@ -61,3 +67,4 @@ function generateTable(data) {
 }
 
 filterSubmitBtn.addEventListener("click", queryDatabase);
+downloadBtn.addEventListener("click", downloadCSV);

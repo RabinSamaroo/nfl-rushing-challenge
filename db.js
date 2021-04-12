@@ -1,6 +1,7 @@
 const DB_NAME = "prod";
 const TABLE_NAME = "players";
 
+//TODO: move to util functions
 const rushing = require("./rushing.json");
 // create the connection to database
 const knex = require("knex")({
@@ -34,6 +35,7 @@ function createTable(table) {
   });
 }
 
+//TODO use map
 function batchInsertFromJSON(input, table) {
   let arr = input;
   for (let e in arr) {
