@@ -11,7 +11,7 @@ const options = {
   }),
 };
 
-fetch(url)
+window.onload = fetch(url)
   .then((response) => response.json())
   .then((responseBody) => {
     generateTable(responseBody);
