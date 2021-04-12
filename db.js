@@ -35,22 +35,20 @@ function createTable(table) {
   });
 }
 
-//TODO use map
 function batchInsertFromJSON(input, table) {
-  let arr = input;
-  for (let e in arr) {
+  let arr = input.map((e) => {
     // Fix Yds to all be numbers
-    if (typeof arr[e].Yds === "string")
-      arr[e].Yds = parseFloat(arr[e].Yds.replace(",", ""));
+    if (typeof e.Yds === "string") e.Yds = parseFloat(e.Yds.replace(",", ""));
 
     // Fix Lng to be a number and the trailing T to be  LngTD - new boolean
-    if (typeof arr[e].Lng === "string") {
-      arr[e].LngTD = arr[e].Lng.includes("T");
-      arr[e].Lng = parseFloat(arr[e].Lng);
+    if (typeof e.Lng === "string") {
+      e.LngTD = e.Lng.includes("T");
+      e.Lng = parseFloat(e.Lng);
     } else {
-      arr[e].LngTD = false;
+      e.LngTD = false;
     }
-  }
+    return e;
+  });
   return knex(table).insert(arr);
 }
 
