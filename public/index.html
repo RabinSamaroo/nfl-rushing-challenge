@@ -44,16 +44,20 @@
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
         <a href=/index.html class="mr-5 hover:text-white cursor-pointer">Home</a>
-        <a href=/blog.html class="mr-5 hover:text-white cursor-pointer">Devlog</a>
+        <a href=https://github.com/RabinSamaroo/nfl-rushing-challenge/wiki
+          class="mr-5 hover:text-white cursor-pointer">Devlog</a>
       </nav>
-      <button
-        class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:border hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
-        Github
-        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          class="w-4 h-4 ml-1" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
+      <a href="https://github.com/RabinSamaroo/nfl-rushing-challenge">
+        <button
+          class="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:border hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+          Github
+
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </a>
     </div>
   </header>
 
@@ -184,38 +188,38 @@
             </div>
 
 
-              <div class="mt-5 col-span-6 sm:col-span-3">
-                <div class="col-span-6">
-                  <div class="flex justify-between">
-                    <label class="ml-3 block text-sm font-medium text-gray-200">Player Name Filter</label>
-                    <span class="text-sm text-gray-300">Optional</span>
-                  </div>
-                  <input type="text" id="filter-player" aria-label="Player Name Filter"
-                    class="mt-1 block w-full py-2 px-3 bg-gray-900 rounded-md shadow-sm sm:text-sm text-gray-300 hover:bg-gray-700">
+            <div class="mt-5 col-span-6 sm:col-span-3">
+              <div class="col-span-6">
+                <div class="flex justify-between">
+                  <label class="ml-3 block text-sm font-medium text-gray-200">Player Name Filter</label>
+                  <span class="text-sm text-gray-300">Optional</span>
                 </div>
+                <input type="text" id="filter-player" aria-label="Player Name Filter"
+                  class="mt-1 block w-full py-2 px-3 bg-gray-900 rounded-md shadow-sm sm:text-sm text-gray-300 hover:bg-gray-700">
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="pt-5">
-            <div class="flex justify-end">
-              <button type="button" id="download-csv"
-                class="ml-3 mt-2 inline-flex justify-center text-white bg-gray-900 border-0 py-2 px-8 focus:outline hover:bg-gray-600 rounded text-lg">
-                Download CSV
-              </button>
-              <button type="button" id="filter-submit"
-                class="ml-3 mt-2 inline-flex justify-center text-white bg-red-600 border-0 py-2 px-8 focus:outline hover:bg-red-400 rounded text-lg">
-                Filter
-              </button>
-            </div>
+        <div class="pt-5">
+          <div class="flex justify-end">
+            <button type="button" id="download-csv"
+              class="ml-3 mt-2 inline-flex justify-center text-white bg-gray-900 border-0 py-2 px-8 focus:outline hover:bg-gray-600 rounded text-lg">
+              Download CSV
+            </button>
+            <button type="button" id="filter-submit"
+              class="ml-3 mt-2 inline-flex justify-center text-white bg-red-600 border-0 py-2 px-8 focus:outline hover:bg-red-400 rounded text-lg">
+              Filter
+            </button>
           </div>
         </div>
-        <div class="mt-5 md:mt-0 md:col-span-2">
-          <table class="w-full flex flex-row rounded-lg flex-no-wrap overflow-hidden my-5">
-          </table>
-        </div>
-
       </div>
+      <div class="mt-5 md:mt-0 md:col-span-2">
+        <table class="w-full flex flex-row rounded-lg flex-no-wrap overflow-hidden my-5">
+        </table>
+      </div>
+
+    </div>
   </section>
 </body>
 
