@@ -152,7 +152,7 @@
           <div class="mt-5 md:col-span-2">
             <div class="col-span-6 sm:col-span-3">
               <label class="ml-3 block text-sm font-medium text-gray-200">Field</label>
-              <select
+              <select id="filter-field"
                 class="mt-1 block w-full py-2 px-3 bg-gray-900 rounded-md shadow-sm sm:text-sm text-gray-300 hover:bg-gray-700">
                 <option selected="selected">Player</option>
                 <option>Team</option>
@@ -175,7 +175,7 @@
             <div class="mt-5 md:col-span-2">
               <div class="col-span-6 sm:col-span-3">
                 <label class="ml-3 block text-sm font-medium text-gray-200">Ascending / Descending</label>
-                <select
+                <select id="filter-asc"
                   class="mt-1 block w-full py-2 px-3 bg-gray-900 rounded-md shadow-sm sm:text-sm text-gray-300 hover:bg-gray-700">
                   <option>Ascending</option>
                   <option selected="selected">Descending</option>
@@ -190,7 +190,7 @@
                     <label class="ml-3 block text-sm font-medium text-gray-200">Player Name Filter</label>
                     <span class="text-sm text-gray-300">Optional</span>
                   </div>
-                  <input type="text" aria-label="Player Name Filter"
+                  <input type="text" id="filter-player" aria-label="Player Name Filter"
                     class="mt-1 block w-full py-2 px-3 bg-gray-900 rounded-md shadow-sm sm:text-sm text-gray-300 hover:bg-gray-700">
                 </div>
               </div>
@@ -199,11 +199,11 @@
 
           <div class="pt-5">
             <div class="flex justify-end">
-              <button type="button"
+              <button type="button" id="download-csv"
                 class="ml-3 mt-2 inline-flex justify-center text-white bg-gray-900 border-0 py-2 px-8 focus:outline hover:bg-gray-600 rounded text-lg">
                 Download CSV
               </button>
-              <button type="button"
+              <button type="button" id="filter-submit"
                 class="ml-3 mt-2 inline-flex justify-center text-white bg-red-600 border-0 py-2 px-8 focus:outline hover:bg-red-400 rounded text-lg">
                 Filter
               </button>

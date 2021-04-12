@@ -1,21 +1,28 @@
-// API Call
-const url = window.location.origin + "/json";
-const options = {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=UTF-8",
-  },
-  body: JSON.stringify({
-    key: "key",
-    value: "value",
-  }),
-};
+const filterField = document.getElementById("filter-field");
+const filterAsc = document.getElementById("filter-asc");
+const filterPlayer = document.getElementById("filter-player");
+const downloadBtn = document.getElementById("download-csv");
+const filterSubmitBtn = document.getElementById("filter-submit");
 
-window.onload = fetch(url)
-  .then((response) => response.json())
-  .then((responseBody) => {
-    generateTable(responseBody);
-  });
+function queryDatabase() {
+  const fields = {
+    filterField: filterField.value,
+    filterAsc: filterAsc.value,
+    filterPlayer: filterPlayer.value,
+  };
+
+  const urlParameters = Object.entries(fields)
+    .map((e) => e.join("="))
+    .join("&");
+
+  const url = window.location.origin + "/json?" + urlParameters;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((responseBody) => {
+      generateTable(responseBody);
+    });
+}
 
 function generateTable(data) {
   let table = document.querySelector("table");
@@ -52,3 +59,5 @@ function generateTable(data) {
     }
   }
 }
+
+filterSubmitBtn.addEventListener("click", queryDatabase);
