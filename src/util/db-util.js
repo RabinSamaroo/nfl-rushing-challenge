@@ -1,8 +1,8 @@
 const rushing = require("./rushing.json");
-const { knex } = require("../db.js");
+const { knex, TABLE_NAME } = require("../db.js");
 
-function createTable(table) {
-  return knex.schema.createTable(table, (table) => {
+function createTable() {
+  return knex.schema.createTable(TABLE_NAME, (table) => {
     table.string("Player", 64).notNull();
     table.string("Team", 3).notNull();
     table.string("Pos", 2).notNull();
@@ -22,7 +22,7 @@ function createTable(table) {
   });
 }
 
-function batchInsertFromJSON(input, table) {
+function batchInsertFromJSON(input) {
   let arr = input.map((e) => {
     // Fix Yds to all be numbers
     if (typeof e.Yds === "string") e.Yds = parseFloat(e.Yds.replace(",", ""));
@@ -36,7 +36,7 @@ function batchInsertFromJSON(input, table) {
     }
     return e;
   });
-  return knex(table).insert(arr);
+  return knex(TABLE_NAME).insert(arr);
 }
 
 module.exports = { rushing, createTable, batchInsertFromJSON };
