@@ -1,7 +1,7 @@
 const { generateQuery, jsonToCsv, LngToString } = require("./util/util.js");
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 // Serve public folder
 app.use(express.static("public"));
