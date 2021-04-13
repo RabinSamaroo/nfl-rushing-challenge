@@ -30,7 +30,7 @@ function createTable() {
 }
 
 /**
- * Generates a query that inserts player based on a json, made for rushing.json
+ * Generates a query that inserts players based on a json, made for rushing.json
  * @param {Array<Object>} input - List of player objects
  * @returns {Promise} Knex query that inserts players from a JSON
  */

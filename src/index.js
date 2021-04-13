@@ -1,4 +1,4 @@
-const { generateQuery, jsonToCsv, LngToString } = require("./util/util.js");
+const { generateQuery, jsonToCsv, lngToString } = require("./util/util.js");
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
@@ -11,7 +11,7 @@ app.get("/json", (req, res) => {
   const query = generateQuery(req.query);
   query
     .then((result) => {
-      res.json(LngToString(result));
+      res.json(lngToString(result));
     })
     .catch(() => {
       res.send(404);
@@ -23,7 +23,7 @@ app.get("/csv", (req, res) => {
   const query = generateQuery(req.query);
   query
     .then((result) => {
-      let csv = jsonToCsv(LngToString(result));
+      let csv = jsonToCsv(lngToString(result));
       res.attachment("rushing.csv");
       res.type(".csv");
       res.send(csv);

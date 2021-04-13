@@ -43,7 +43,7 @@ function jsonToCsv(items) {
  * @param {Array<Object>} items - List of player objects that need to merge
  * @returns {Array<Object>} Fixed list of players
  */
-function LngToString(items) {
+function lngToString(items) {
   return items.map((e) => {
     e["Lng"] = e["Lng"].toString() + (e["LngTD"] == "1" ? "T" : "");
     delete e["LngTD"];
@@ -51,4 +51,4 @@ function LngToString(items) {
   });
 }
 
-module.exports = { generateQuery, jsonToCsv, LngToString };
+module.exports = { generateQuery, jsonToCsv, lngToString };
