@@ -1,6 +1,13 @@
+/**
+ * Utility functions that assist with database management. They are not used in the server code.
+ */
 const rushing = require("./rushing.json");
 const { knex, TABLE_NAME } = require("../db.js");
 
+/**
+ * Generates a Knex query to create the players table
+ * @retuns {Promise} Knex query to create table
+ */
 function createTable() {
   return knex.schema.createTable(TABLE_NAME, (table) => {
     table.string("Player", 64).notNull();
@@ -22,6 +29,11 @@ function createTable() {
   });
 }
 
+/**
+ * Generates a query that inserts player based on a json, made for rushing.json
+ * @param {Array<Object>} input - List of player objects
+ * @returns {Promise} Knex query that inserts players from a JSON
+ */
 function batchInsertFromJSON(input) {
   let arr = input.map((e) => {
     // Fix Yds to all be numbers

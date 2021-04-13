@@ -3,8 +3,10 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// Serve public folder
 app.use(express.static("public"));
 
+// Api request responds data as json, based on query
 app.get("/json", (req, res) => {
   const query = generateQuery(req.query);
   query
@@ -16,6 +18,7 @@ app.get("/json", (req, res) => {
     });
 });
 
+// Download data in csv format based on query
 app.get("/csv", (req, res) => {
   const query = generateQuery(req.query);
   query
@@ -30,6 +33,7 @@ app.get("/csv", (req, res) => {
     });
 });
 
+//Serve app
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`);
 });
