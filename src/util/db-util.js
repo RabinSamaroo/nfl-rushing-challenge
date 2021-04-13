@@ -37,14 +37,15 @@ function createTable() {
 function batchInsertFromJSON(input) {
   let arr = input.map((e) => {
     // Fix Yds to all be numbers
-    if (typeof e.Yds === "string") e.Yds = parseFloat(e.Yds.replace(",", ""));
+    if (typeof e["Yds"] === "string")
+      e["Yds"] = parseFloat(e["Yds"].replace(",", ""));
 
     // Fix Lng to be a number and the trailing T to be  LngTD - new boolean
-    if (typeof e.Lng === "string") {
-      e.LngTD = e.Lng.includes("T");
-      e.Lng = parseFloat(e.Lng);
+    if (typeof e["Lng"] === "string") {
+      e["LngTD"] = e["Lng"].includes("T");
+      e["Lng"] = parseFloat(e["Lng"]);
     } else {
-      e.LngTD = false;
+      e["LngTD"] = false;
     }
     return e;
   });
