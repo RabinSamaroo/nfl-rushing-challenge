@@ -62,4 +62,10 @@ If you have any questions regarding requirements, do not hesitate to email your 
 
 ### Installation and running this solution
 
-... TODO
+```
+git clone clone RabinSamaroo/nfl-rushing-challenge
+
+sudo docker build . -t nfl-rushing
+
+sudo docker run -p 3000:3000 nfl-rushing
+```
