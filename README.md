@@ -1,5 +1,26 @@
 # theScore "the Rush" Interview Challenge
 
+## Installation and running this solution
+
+The reasoning behind many of the decisions made here can be found on this [Github Wiki](https://github.com/RabinSamaroo/nfl-rushing-challenge/wiki)
+
+### Hosted App
+
+The app is [hosted here](https://prod-6jsj6c7krq-uc.a.run.app) via Google Cloud Run's CD Service
+
+### Run Locally
+
+Copy the following commands into a bash shell. **Be sure docker is installed**. Clone the repo, build the image with the tag `nfl-rushing`, run the image with port `3000`.
+
+```bash
+git clone https://github.com/RabinSamaroo/nfl-rushing-challenge &&
+cd nfl-rushing-challenge &&
+sudo docker build . -t nfl-rushing &&
+sudo docker run -p 3000:3000 nfl-rushing
+```
+
+---
+
 At theScore, we are always looking for intelligent, resourceful, full-stack developers to join our growing team. To help us evaluate new talent, we have created this take-home interview question. This question should take you no more than a few hours.
 
 **All candidates must complete this before the possibility of an in-person interview. During the in-person interview, your submitted project will be used as the base for further extensions.**
@@ -59,20 +80,3 @@ We will evaluate you on your ability to solve the problem defined in the require
 ### Help
 
 If you have any questions regarding requirements, do not hesitate to email your contact at theScore for clarification.
-
-### Installation and running this solution
-
-#### Hosted
-
-The app is [hosted](https://prod-6jsj6c7krq-uc.a.run.app) via Google Cloud Run's CD Service
-
-#### Run Locally
-
-Clone the repo, build the image with the tag `nfl-rushing`, run the image with port `3000`
-
-```bash
-git clone https://github.com/RabinSamaroo/nfl-rushing-challenge &&
-cd nfl-rushing-challenge &&
-sudo docker build . -t nfl-rushing &&
-sudo docker run -p 3000:3000 nfl-rushing
-```
