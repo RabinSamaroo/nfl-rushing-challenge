@@ -62,22 +62,17 @@ If you have any questions regarding requirements, do not hesitate to email your 
 
 ### Installation and running this solution
 
-Clone the repo
+#### Hosted
 
-```
-git clone https://github.com/RabinSamaroo/nfl-rushing-challenge
-```
+The app is [hosted](https://prod-6jsj6c7krq-uc.a.run.app) via Google Cloud Run's CD Service
 
-Build the image
+#### Run Locally
 
-```
-sudo docker build . -t nfl-rushing
-```
+Clone the repo, build the image with the tag `nfl-rushing`, run the image with port `3000`
 
-Run the image
-
-```
+```bash
+git clone https://github.com/RabinSamaroo/nfl-rushing-challenge &&
+cd nfl-rushing-challenge &&
+sudo docker build . -t nfl-rushing &&
 sudo docker run -p 3000:3000 nfl-rushing
 ```
-
-Connect to https://localhost:3000
