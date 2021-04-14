@@ -1,6 +1,6 @@
 FROM node
 ENV NODE_ENV=production
-ENV PORT=8080
+ENV PORT=3000
 ENV DB_NAME=prod
 ENV TABLE_NAME=player
 # This info should be stored in a secret manager or CI/CD system

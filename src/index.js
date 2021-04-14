@@ -1,12 +1,10 @@
 const { generateQuery, jsonToCsv, lngToString } = require("./util/util.js");
 const express = require("express");
-const cors = require("cors");
 const app = express();
 const port = process.env.PORT;
 
 // Serve public folder
 app.use(express.static("public"));
-app.use(cors());
 
 // Api request responds data as json, based on query
 app.get("/json", (req, res) => {
