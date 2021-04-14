@@ -2,7 +2,7 @@ FROM node
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV DB_NAME=prod
-ENV TABLE_NAME=player
+ENV TABLE_NAME=players
 # This info should be stored in a secret manager or CI/CD system
 ENV DB_HOST=34.68.135.75
 ENV DB_USER=root

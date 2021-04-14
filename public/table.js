@@ -43,6 +43,7 @@ function queryDatabase() {
     .then((response) => response.json())
     .then((responseBody) => {
       generateTable(responseBody);
+      window.location.href = "#filter";
     });
 }
 
