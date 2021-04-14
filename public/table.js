@@ -2,6 +2,7 @@
 const filterField = document.getElementById("filter-field");
 const filterAsc = document.getElementById("filter-asc");
 const filterPlayer = document.getElementById("filter-player");
+const filterLimit = document.getElementById("filter-limit");
 const downloadBtn = document.getElementById("download-csv");
 const filterSubmitBtn = document.getElementById("filter-submit");
 
@@ -14,6 +15,7 @@ function generateParams() {
     filterField: filterField.value,
     filterAsc: filterAsc.value,
     filterPlayer: filterPlayer.value,
+    filterLimit: filterLimit.value,
   };
 
   return Object.entries(fields)

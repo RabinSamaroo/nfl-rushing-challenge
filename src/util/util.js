@@ -9,12 +9,15 @@ const { knex, TABLE_NAME } = require("../db.js");
  * @returns {Promise} - knex query
  */
 function generateQuery(queryParams) {
-  const { filterField, filterAsc, filterPlayer } = queryParams; // TODO: Destructure in the function argument
+  const { filterField, filterAsc, filterPlayer, filterLimit } = queryParams; // TODO: Destructure in the function argument
   let query = knex(TABLE_NAME)
     .select()
     .orderBy(filterField, filterAsc == "Ascending" ? "asc" : "desc");
 
   if (filterPlayer) query.where("Player", "like", `%${filterPlayer}%`);
+
+  query.limit(filterLimit);
+
   return query;
 }
 
