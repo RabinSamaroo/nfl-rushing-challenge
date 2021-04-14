@@ -62,10 +62,20 @@ If you have any questions regarding requirements, do not hesitate to email your 
 
 ### Installation and running this solution
 
+Clone the repo
+
 ```
-git clone clone RabinSamaroo/nfl-rushing-challenge
+$ git clone clone https://github.com/RabinSamaroo/nfl-rushing-challenge
+```
 
+Build the image
+
+```
 sudo docker build . -t nfl-rushing
+```
 
+Run the image
+
+```
 sudo docker run -p 3000:3000 nfl-rushing
 ```
