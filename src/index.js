@@ -13,7 +13,8 @@ app.get("/json", (req, res) => {
     .then((result) => {
       res.json(lngToString(result));
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.send(404);
     });
 });
@@ -28,7 +29,8 @@ app.get("/csv", (req, res) => {
       res.type(".csv");
       res.send(csv);
     })
-    .catch(() => {
+    .catch((err) => {
+      console.log(err);
       res.send(404);
     });
 });
