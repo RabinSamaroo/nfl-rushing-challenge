@@ -45,7 +45,7 @@ function queryDatabase() {
     .then((response) => response.json())
     .then((responseBody) => {
       generateTable(responseBody);
-      window.location.href = "#filter";
+      // window.location.href = "#filter";
     });
 }
 
@@ -90,3 +90,5 @@ function generateTable(data) {
 // Assign functions to buttons
 filterSubmitBtn.addEventListener("click", queryDatabase);
 downloadBtn.addEventListener("click", downloadCSV);
+
+queryDatabase();
