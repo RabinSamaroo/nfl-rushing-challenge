@@ -15,7 +15,11 @@ function generateQuery(queryParams) {
     .orderBy(filterField, filterAsc == "Ascending" ? "asc" : "desc");
 
   if (filterPlayer)
-    query.where("Player", "like", `%${filterPlayer.replace("%", "\\%")}%`);
+    query.where(
+      "Player",
+      "like",
+      `%${filterPlayer.replace("%", "\\%").replace("_", "\\_")}%`
+    );
 
   query.limit(filterLimit);
 
