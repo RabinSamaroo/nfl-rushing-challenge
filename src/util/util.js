@@ -61,8 +61,38 @@ function lngToString(items) {
  * @returns True if the parameters are valid
  */
 function validateInput(params) {
-  console.log(params);
-  return true;
+  // Object that denoes valid input
+  const validInputs = {
+    filterField: [
+      "Player",
+      "Team",
+      "Pos",
+      "Att",
+      "Att/G",
+      "Yds",
+      "Avg",
+      "Yds/G",
+      "TD",
+      "Lng",
+      "1st",
+      "1st%",
+      "20+",
+      "40+",
+      "FUM",
+    ],
+    filterAsc: ["Ascending", "Descending"],
+    filterLimit: ["25", "50", "100"],
+  };
+
+  // Checks if the parameters are in the valid inputs
+  if (
+    validInputs["filterField"].includes(params["filterField"]) &&
+    validInputs["filterLimit"].includes(params["filterLimit"]) &&
+    validInputs["filterAsc"].includes(params["filterAsc"])
+  )
+    return true;
+
+  return false;
 }
 
 module.exports = { generateQuery, jsonToCsv, lngToString, validateInput };
