@@ -1,5 +1,10 @@
 require("dotenv").config(); // setup environment variables from .env
-const { generateQuery, jsonToCsv, lngToString } = require("./util/util.js");
+const {
+  generateQuery,
+  jsonToCsv,
+  lngToString,
+  validateInput,
+} = require("./util/util.js");
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
@@ -9,6 +14,8 @@ app.use(express.static("public"));
 
 // Api request responds data as json, based on query
 app.get("/json", (req, res) => {
+  if (!validateInput(req.query)) return res.sendStatus(400);
+
   const query = generateQuery(req.query);
   query
     .then((result) => {
@@ -22,6 +29,7 @@ app.get("/json", (req, res) => {
 
 // Download data in csv format based on query
 app.get("/csv", (req, res) => {
+  if (!validateInput(req.query)) return res.sendStatus(400);
   const query = generateQuery(req.query);
   query
     .then((result) => {

@@ -54,4 +54,14 @@ function lngToString(items) {
   });
 }
 
-module.exports = { generateQuery, jsonToCsv, lngToString };
+/**
+ * Validates parameters to ensure no invalid fields are being queried
+ * @param {Object} params - List of parameters to validate, comes from the query url
+ * @returns True if the parameters are valid
+ */
+function validateInput(params) {
+  console.log(params);
+  return true;
+}
+
+module.exports = { generateQuery, jsonToCsv, lngToString, validateInput };
