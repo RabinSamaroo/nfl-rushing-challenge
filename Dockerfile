@@ -1,4 +1,4 @@
-FROM node
+FROM node:latest
 ENV NODE_ENV=production
 ENV PORT=3000
 ENV DB_NAME=prod
