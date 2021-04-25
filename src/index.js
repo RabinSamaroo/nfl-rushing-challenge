@@ -1,5 +1,4 @@
 require("dotenv").config(); // setup environment variables from .env
-
 const { generateQuery, jsonToCsv, lngToString } = require("./util/util.js");
 const express = require("express");
 const app = express();
@@ -17,7 +16,7 @@ app.get("/json", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.send(404);
+      res.sendStatus(404);
     });
 });
 
@@ -33,7 +32,7 @@ app.get("/csv", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.send(404);
+      res.sendStatus(404);
     });
 });
 
