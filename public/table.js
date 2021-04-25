@@ -50,6 +50,19 @@ function queryDatabase() {
 }
 
 /**
+ * Checks to see if the input is an integer and then formats it with , if required. Otherwise returns the input
+ * @param {*} value value to be formatter
+ * @returns formatted integer or the original value
+ */
+function thousandsFormatting(value) {
+  if (Number.isInteger(value)) {
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  } else {
+    return value;
+  }
+}
+
+/**
  *  Clears the current table and generates a new one based on the input object
  * @param {Array<Object>} data Object data to be turned into a table
  */
@@ -81,7 +94,7 @@ function generateTable(data) {
 
       let td = document.createElement("td");
       td.classList = "p-3";
-      td.innerHTML = data[i][key];
+      td.innerHTML = thousandsFormatting(data[i][key]);
       row_body.appendChild(td);
     }
   }
