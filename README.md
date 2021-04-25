@@ -15,8 +15,8 @@ Copy the following commands into a bash shell. **Be sure docker is installed**. 
 ```bash
 git clone https://github.com/RabinSamaroo/nfl-rushing-challenge &&
 cd nfl-rushing-challenge &&
-sudo docker build . -t nfl-rushing &&
-sudo docker run -p 3000:3000 nfl-rushing
+docker build . -t nfl-rushing &&
+docker run -p 3000:3000 nfl-rushing
 ```
 
 ---
