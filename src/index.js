@@ -1,3 +1,5 @@
+require("dotenv").config(); // setup environment variables from .env
+
 const { generateQuery, jsonToCsv, lngToString } = require("./util/util.js");
 const express = require("express");
 const app = express();
