@@ -25,15 +25,52 @@ function generateParams(
     .join("&");
 }
 
-describe("Test", () => {
-  it("t1", (done) => {
+describe("Invalid Input", () => {
+  it("filterField Invalid", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams())
+      .get("/json?" + generateParams("err"))
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
+
+  it("filterAsc Invalid", (done) => {
+    chai
+      .request(server)
+      .get("/json?" + generateParams("Yds", "err"))
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
+
+  it("filterLimit Invalid", (done) => {
+    chai
+      .request(server)
+      .get("/json?" + generateParams("Yds", "Ascending", "", "1"))
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
+
+  it("offset Out-Of-Bounds", (done) => {
+    chai
+      .request(server)
+      .get("/json?" + generateParams("Yds", "Ascending", "", "25", "350"))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
+        expect(JSON.parse(res["text"])["data"]).to.eql([]);
         done();
       });
   });
