@@ -4,6 +4,7 @@ const {
   jsonToCsv,
   lngToString,
   validateInput,
+  countQuery,
 } = require("./util/util.js");
 const express = require("express");
 const app = express();
@@ -16,15 +17,33 @@ app.use(express.static("public"));
 app.get("/json", (req, res) => {
   if (!validateInput(req.query)) return res.sendStatus(400);
 
-  const query = generateQuery(req.query);
-  query
+  let promises = [];
+
+  promises[0] = countQuery()
     .then((result) => {
-      res.json(lngToString(result));
+      return result[0]["count(*)"];
     })
     .catch((err) => {
       console.log(err);
       res.sendStatus(404);
     });
+
+  promises[1] = generateQuery(req.query)
+    .then((result) => {
+      return lngToString(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(404);
+    });
+
+  Promise.all(promises).then((result) => {
+    res.json({
+      count: result[0],
+      offset: parseInt(req.query.offset),
+      data: result[1],
+    });
+  });
 });
 
 // Download data in csv format based on query

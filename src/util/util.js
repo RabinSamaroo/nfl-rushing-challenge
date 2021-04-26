@@ -4,15 +4,31 @@
 const { knex, TABLE_NAME } = require("../db.js");
 
 /**
+ * Generate a knex query that gets the count
+ * @returns {Promise} - kneq query
+ */
+function countQuery() {
+  return knex(TABLE_NAME).count();
+}
+
+/**
  * Generate a knex mysql query based on queryParams
  * @param {Object} queryParams - query filter options, provided by the webpage filter
  * @returns {Promise} - knex query
  */
 function generateQuery(queryParams) {
-  const { filterField, filterAsc, filterPlayer, filterLimit } = queryParams; // TODO: Destructure in the function argument
+  const {
+    filterField,
+    filterAsc,
+    filterPlayer,
+    filterLimit,
+    offset,
+  } = queryParams;
   let query = knex(TABLE_NAME)
     .select()
-    .orderBy(filterField, filterAsc == "Ascending" ? "asc" : "desc");
+    .orderBy(filterField, filterAsc == "Ascending" ? "asc" : "desc")
+    .limit(filterLimit)
+    .offset(offset);
 
   if (filterPlayer)
     query.where(
@@ -20,8 +36,6 @@ function generateQuery(queryParams) {
       "like",
       `%${filterPlayer.replace("%", "\\%").replace("_", "\\_")}%`
     );
-
-  query.limit(filterLimit);
 
   return query;
 }
@@ -92,11 +106,18 @@ function validateInput(params) {
   if (
     validInputs["filterField"].includes(params["filterField"]) &&
     validInputs["filterLimit"].includes(params["filterLimit"]) &&
-    validInputs["filterAsc"].includes(params["filterAsc"])
+    validInputs["filterAsc"].includes(params["filterAsc"]) &&
+    !isNaN(params["offset"]) // offfset is a number
   )
     return true;
 
   return false;
 }
 
-module.exports = { generateQuery, jsonToCsv, lngToString, validateInput };
+module.exports = {
+  generateQuery,
+  jsonToCsv,
+  lngToString,
+  validateInput,
+  countQuery,
+};
