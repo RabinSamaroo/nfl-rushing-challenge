@@ -42,7 +42,8 @@ app.get("/json", (req, res) => {
   Promise.all(promises).then((result) => {
     res.json({
       count: result[0],
-      offset: req.query.offset,
+      offset: parseInt(req.query["offset"]),
+      limit: parseInt(req.query["filterLimit"]),
       data: result[1],
     });
   });

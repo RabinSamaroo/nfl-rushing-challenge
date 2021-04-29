@@ -5,22 +5,31 @@ const filterPlayer = document.getElementById("filter-player");
 const filterLimit = document.getElementById("filter-limit");
 const downloadBtn = document.getElementById("download-csv");
 const filterSubmitBtn = document.getElementById("filter-submit");
+let lastQuery;
 
 /**
- * Takes values provided by the filter section and generates URL safe parameters for the api call
+ * Builds a set of parameters from the page inputs
  * @param page - page to be retrived
  * @returns {String} URL Safe parameters
  */
-function generateParams(page = 0) {
-  const fields = {
+function generateParamsObj(page = 0) {
+  output = {
     filterField: filterField.value,
     filterAsc: filterAsc.value,
     filterPlayer: filterPlayer.value,
     filterLimit: filterLimit.value,
     offset: page * filterLimit.value,
   };
+  return output;
+}
 
-  return Object.entries(fields)
+/**
+ * Generates URL safe paremeters based on any object
+ * @param {Object} obj any object
+ * @returns {String} URL safe parameteres
+ */
+function generateUrlParams(obj) {
+  return Object.entries(obj)
     .map((e) => e.join("="))
     .join("&");
 }
@@ -29,26 +38,35 @@ function generateParams(page = 0) {
  * Generates the URL for the CSV download and opens a new tab, initating the download
  */
 function downloadCSV() {
-  const urlParameters = generateParams();
+  const urlParameters = generateUrlParams(generateParamsObj());
   const url = window.location.origin + "/csv?" + urlParameters;
 
   window.open(url);
 }
 
 /**
- * Generates the URL for the database and results are returned in json
- * Calls generate table with the API response
+ * Generates the URL to query the database, fetches URL and generates table
  */
-function queryDatabase() {
-  let urlParameters;
-  if (isNaN(this.innerHTML)) {
-    // If this is not a pagination
-    urlParameters = generateParams();
-  } else {
-    // If this is pagination, generate correct offset value
-    urlParameters = generateParams(this.innerHTML - 1);
-  }
+function getPlayers() {
+  let urlParameters = generateUrlParams(generateParamsObj());
+  const url = window.location.origin + "/json?" + urlParameters;
 
+  fetch(url)
+    .then((response) => response.json())
+    .then((responseBody) => {
+      lastQuery = generateParamsObj();
+      generateTable(responseBody);
+      generatePageination(responseBody);
+    });
+}
+
+/**
+ * Generates the URL to query the database for pagination, fetches URL and generates table
+ */
+function getPagination() {
+  let paramsObj = lastQuery;
+  paramsObj.offset = (this.innerHTML - 1) * lastQuery["filterLimit"];
+  let urlParameters = generateUrlParams(paramsObj);
   const url = window.location.origin + "/json?" + urlParameters;
 
   fetch(url)
@@ -56,13 +74,12 @@ function queryDatabase() {
     .then((responseBody) => {
       generateTable(responseBody);
       generatePageination(responseBody);
-      // window.location.href = "#filter";
     });
 }
 
 /**
  * Checks to see if the input is an integer and then formats it with , if required. Otherwise returns the input
- * @param {*} value value to be formatter
+ * @param {*} value value to be formatted
  * @returns formatted integer or the original value
  */
 function thousandsFormatting(value) {
@@ -118,7 +135,7 @@ function generateTable(response) {
  * @param {Array<Object>} response server response with count and data
  */
 function generatePageination(response) {
-  let limit = filterLimit.value;
+  let limit = response["limit"];
   let total = response["count"];
   let pages = Math.ceil(total / limit);
   let selected = Math.floor(response["offset"] / limit);
@@ -134,13 +151,13 @@ function generatePageination(response) {
         : "cursor-pointer border-transparent text-gray-500 hover:text-gray-200 hover:border-gray-400 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium";
 
     page.innerText = i + 1;
-    page.addEventListener("click", queryDatabase);
+    page.addEventListener("click", getPagination);
     pagination.appendChild(page);
   }
 }
 
 // Assign functions to buttons
-filterSubmitBtn.addEventListener("click", queryDatabase);
+filterSubmitBtn.addEventListener("click", getPlayers);
 downloadBtn.addEventListener("click", downloadCSV);
 
-queryDatabase();
+getPlayers();
