@@ -77,16 +77,12 @@ function getPagination() {
 }
 
 /**
- * Checks to see if the input is an integer and then formats it with , if required. Otherwise returns the input
- * @param {*} value value to be formatted
- * @returns formatted integer or the original value
+ * Formats integer into String with commas
+ * @param {Integer} value value to be formatted
+ * @returns formatted integer
  */
 function thousandsFormatting(value) {
-  if (Number.isInteger(value)) {
-    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  } else {
-    return value;
-  }
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 /**
@@ -123,7 +119,12 @@ function generateTable(response) {
 
       let td = document.createElement("td");
       td.classList = "p-3";
-      td.innerHTML = thousandsFormatting(data[i][key]);
+      // Format if commas in integers
+      if (Number.isInteger(data[i][key])) {
+        td.innerHTML = thousandsFormatting(data[i][key]);
+      } else {
+        td.innerHTML = data[i][key];
+      }
       row_body.appendChild(td);
     }
   }
