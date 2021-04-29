@@ -46,14 +46,14 @@ function generateQuery(queryParams) {
  * @returns {String}} - CSV String
  */
 function jsonToCsv(items) {
-  const replacer = (key, value) => (value === null ? "" : value); // specify how you want to handle null values here
+  if (items.length == 0) return "";
+  // console.log(items.length == 0);
+
   const header = Object.keys(items[0]);
   const csv = [
     header.join(","), // header row first
     ...items.map((row) =>
-      header
-        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
-        .join(",")
+      header.map((fieldName) => JSON.stringify(row[fieldName])).join(",")
     ),
   ].join("\r\n");
 
@@ -99,7 +99,7 @@ function validateInput(params) {
       "FUM",
     ],
     filterAsc: ["Ascending", "Descending"],
-    filterLimit: ["25", "50", "100"],
+    filterLimit: ["25", "50", "100", "500"],
   };
 
   // Checks if the parameters are in the valid inputs
