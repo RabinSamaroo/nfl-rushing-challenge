@@ -5,20 +5,18 @@ const expect = chai.expect;
 
 chai.use(chaiHttp);
 
-function generateParams(
-  filterField = "Yds",
-  filterAsc = "Ascending",
-  filterPlayer = "",
-  filterLimit = 25,
-  offset = 0
-) {
-  const fields = {
-    filterField: filterField,
-    filterAsc: filterAsc,
-    filterPlayer: filterPlayer,
-    filterLimit: filterLimit,
-    offset: offset,
+function generateParams(params = {}) {
+  let fields = {
+    filterField: "Yds",
+    filterAsc: "Ascending",
+    filterPlayer: "",
+    filterLimit: 25,
+    offset: 0,
   };
+
+  for (key of Object.keys(params)) {
+    fields[key] = params[key];
+  }
 
   return Object.entries(fields)
     .map((e) => e.join("="))
@@ -26,10 +24,23 @@ function generateParams(
 }
 
 describe("/json GET", () => {
-  it("filterField Invalid", (done) => {
+  it("200 - Returns JSON", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams("err"))
+      .get("/json?" + generateParams())
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(JSON.parse(res["text"])).not.to.throw;
+        done();
+      });
+  });
+
+  it("400 - filterField Invalid", (done) => {
+    chai
+      .request(server)
+      .get("/json?" + generateParams({ filterField: "err" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -38,10 +49,10 @@ describe("/json GET", () => {
       });
   });
 
-  it("filterAsc Invalid", (done) => {
+  it("400 - filterAsc Invalid", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams("Yds", "err"))
+      .get("/json?" + generateParams({ filterAsc: "err" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -50,10 +61,10 @@ describe("/json GET", () => {
       });
   });
 
-  it("filterLimit Invalid", (done) => {
+  it("400 - filterLimit Invalid", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams("Yds", "Ascending", "", "1"))
+      .get("/json?" + generateParams({ filterLimit: "1" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -62,10 +73,10 @@ describe("/json GET", () => {
       });
   });
 
-  it("offset Out-Of-Bounds", (done) => {
+  it("200 - offset Out-Of-Bounds", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams("Yds", "Ascending", "", "25", "350"))
+      .get("/json?" + generateParams({ offset: "350" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -74,10 +85,11 @@ describe("/json GET", () => {
         done();
       });
   });
-  it("% in playerName filter returns nothing", (done) => {
+
+  it("200 - % in playerName filter returns nothing", (done) => {
     chai
       .request(server)
-      .get("/json?" + generateParams("Yds", "Ascending", "%"))
+      .get("/json?" + generateParams({ filterPlayer: "%" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -89,10 +101,25 @@ describe("/json GET", () => {
 });
 
 describe("/csv GET", () => {
-  it("filterField Invalid", (done) => {
+  it("200 - first row is header", (done) => {
     chai
       .request(server)
-      .get("/csv?" + generateParams("err"))
+      .get("/csv?" + generateParams())
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect(res["text"].split("\r\n")[0]).to.equal(
+          "Player,Team,Pos,Att,Att/G,Yds,Avg,Yds/G,TD,Lng,1st,1st%,20+,40+,FUM"
+        );
+        done();
+      });
+  });
+
+  it("400 - filterField Invalid", (done) => {
+    chai
+      .request(server)
+      .get("/csv?" + generateParams({ filterField: "err" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -101,10 +128,10 @@ describe("/csv GET", () => {
       });
   });
 
-  it("filterAsc Invalid", (done) => {
+  it("400 - filterAsc Invalid", (done) => {
     chai
       .request(server)
-      .get("/csv?" + generateParams("Yds", "err"))
+      .get("/csv?" + generateParams({ filterField: "err" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -113,10 +140,10 @@ describe("/csv GET", () => {
       });
   });
 
-  it("filterLimit Invalid", (done) => {
+  it("400 - filterLimit Invalid", (done) => {
     chai
       .request(server)
-      .get("/csv?" + generateParams("Yds", "Ascending", "", "1"))
+      .get("/csv?" + generateParams({ filterLimit: "1" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -125,10 +152,10 @@ describe("/csv GET", () => {
       });
   });
 
-  it("offset Out-Of-Bounds", (done) => {
+  it("200 - offset Out-Of-Bounds", (done) => {
     chai
       .request(server)
-      .get("/csv?" + generateParams("Yds", "Ascending", "", "25", "350"))
+      .get("/csv?" + generateParams({ offset: "350" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;
@@ -137,10 +164,11 @@ describe("/csv GET", () => {
         done();
       });
   });
-  it("% in playerName filter returns nothing", (done) => {
+
+  it("200 - % in playerName filter returns nothing", (done) => {
     chai
       .request(server)
-      .get("/csv?" + generateParams("Yds", "Ascending", "%"))
+      .get("/csv?" + generateParams({ filterPlayer: "%" }))
       .send()
       .end((err, res) => {
         expect(err).to.be.null;

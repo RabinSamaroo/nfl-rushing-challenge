@@ -47,7 +47,6 @@ function generateQuery(queryParams) {
  */
 function jsonToCsv(items) {
   if (items.length == 0) return "";
-  // console.log(items.length == 0);
 
   const header = Object.keys(items[0]);
   const csv = [
