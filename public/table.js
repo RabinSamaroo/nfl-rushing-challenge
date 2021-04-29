@@ -38,7 +38,7 @@ function generateUrlParams(obj) {
  * Generates the URL for the CSV download and opens a new tab, initating the download
  */
 function downloadCSV() {
-  const urlParameters = generateUrlParams(generateParamsObj());
+  const urlParameters = generateUrlParams(lastQuery);
   const url = window.location.origin + "/csv?" + urlParameters;
 
   window.open(url);
@@ -64,9 +64,8 @@ function getPlayers() {
  * Generates the URL to query the database for pagination, fetches URL and generates table
  */
 function getPagination() {
-  let paramsObj = lastQuery;
-  paramsObj.offset = (this.innerHTML - 1) * lastQuery["filterLimit"];
-  let urlParameters = generateUrlParams(paramsObj);
+  lastQuery.offset = (this.innerHTML - 1) * lastQuery["filterLimit"];
+  let urlParameters = generateUrlParams(lastQuery);
   const url = window.location.origin + "/json?" + urlParameters;
 
   fetch(url)
