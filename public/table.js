@@ -48,7 +48,7 @@ function downloadCSV() {
  * Generates the URL to query the database, fetches URL and generates table
  */
 function getPlayers() {
-  let urlParameters = generateUrlParams(generateParamsObj());
+  const urlParameters = generateUrlParams(generateParamsObj());
   const url = window.location.origin + "/json?" + urlParameters;
 
   fetch(url)
@@ -65,7 +65,7 @@ function getPlayers() {
  */
 function getPagination() {
   lastQuery.offset = (this.innerHTML - 1) * lastQuery["filterLimit"];
-  let urlParameters = generateUrlParams(lastQuery);
+  const urlParameters = generateUrlParams(lastQuery);
   const url = window.location.origin + "/json?" + urlParameters;
 
   fetch(url)
