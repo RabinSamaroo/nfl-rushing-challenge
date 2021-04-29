@@ -19,6 +19,7 @@ app.get("/json", (req, res) => {
 
   let promises = [];
 
+  // Get count for pagination
   promises[0] = countQuery()
     .then((result) => {
       return result[0]["count(*)"];
@@ -28,6 +29,7 @@ app.get("/json", (req, res) => {
       res.sendStatus(404);
     });
 
+  // Get data
   promises[1] = generateQuery(req.query)
     .then((result) => {
       return lngToString(result);
@@ -40,7 +42,7 @@ app.get("/json", (req, res) => {
   Promise.all(promises).then((result) => {
     res.json({
       count: result[0],
-      offset: parseInt(req.query.offset),
+      offset: req.query.offset,
       data: result[1],
     });
   });

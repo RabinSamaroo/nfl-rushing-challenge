@@ -37,6 +37,19 @@ describe("/json GET", () => {
       });
   });
 
+  it("200 - Count is not Null", (done) => {
+    chai
+      .request(server)
+      .get("/json?" + generateParams())
+      .send()
+      .end((err, res) => {
+        expect(err).to.be.null;
+        expect(res).to.have.status(200);
+        expect("count" in JSON.parse(res["text"])).to.be.true;
+        done();
+      });
+  });
+
   it("400 - filterField Invalid", (done) => {
     chai
       .request(server)
