@@ -6,15 +6,20 @@ The reasoning behind many of the decisions made here can be found on this [Githu
 
 ### Hosted App
 
-The app is [hosted here](https://prod-6jsj6c7krq-uc.a.run.app) via Google Cloud Run's CD Service
+The app is [hosted here](https://prod-6jsj6c7krq-uc.a.run.app).
 
 ### Run Locally
 
-Copy the following commands into a bash shell. **Be sure docker is installed**. Clone the repo, build the image with the tag `nfl-rushing`, run the image with port `3000`.
+**Be sure docker is installed**. Clone the repo.
 
 ```bash
 git clone https://github.com/RabinSamaroo/nfl-rushing-challenge &&
-cd nfl-rushing-challenge &&
+cd nfl-rushing-challenge
+```
+
+Copy `.env` to the root directory. Build and run.
+
+```
 docker build . -t nfl-rushing &&
 docker run -p 3000:3000 nfl-rushing
 ```
